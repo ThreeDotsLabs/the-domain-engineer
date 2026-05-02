@@ -19,10 +19,18 @@ import (
 
 // Defines values for TaxRateRequestLineItemType.
 const (
-	BEVERAGE TaxRateRequestLineItemType = "BEVERAGE"
-	DELIVERY TaxRateRequestLineItemType = "DELIVERY"
-	FOOD     TaxRateRequestLineItemType = "FOOD"
-	SERVICE  TaxRateRequestLineItemType = "SERVICE"
+	TaxRateRequestLineItemTypeBEVERAGE TaxRateRequestLineItemType = "BEVERAGE"
+	TaxRateRequestLineItemTypeDELIVERY TaxRateRequestLineItemType = "DELIVERY"
+	TaxRateRequestLineItemTypeFOOD     TaxRateRequestLineItemType = "FOOD"
+	TaxRateRequestLineItemTypeSERVICE  TaxRateRequestLineItemType = "SERVICE"
+)
+
+// Defines values for TaxRateRequestTaxClass.
+const (
+	TaxRateRequestTaxClassBEVERAGE TaxRateRequestTaxClass = "BEVERAGE"
+	TaxRateRequestTaxClassDELIVERY TaxRateRequestTaxClass = "DELIVERY"
+	TaxRateRequestTaxClassFOOD     TaxRateRequestTaxClass = "FOOD"
+	TaxRateRequestTaxClassSERVICE  TaxRateRequestTaxClass = "SERVICE"
 )
 
 // Defines values for TaxRateResponseTaxType.
@@ -49,18 +57,25 @@ type TaxRateRequest struct {
 	// BuyerTaxId Tax ID of the buyer (optional)
 	BuyerTaxId *string `json:"buyer_tax_id,omitempty"`
 
-	// LineItemType Type of line item
-	LineItemType TaxRateRequestLineItemType `json:"line_item_type"`
+	// LineItemType Deprecated: use tax_class instead.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
+	LineItemType *TaxRateRequestLineItemType `json:"line_item_type,omitempty"`
 
 	// SellerCountryCode ISO 3166-1 alpha-2 country code of the seller
 	SellerCountryCode string `json:"seller_country_code"`
+
+	// TaxClass Tax class of the line item
+	TaxClass *TaxRateRequestTaxClass `json:"tax_class,omitempty"`
 
 	// TransactionDate Date of the transaction
 	TransactionDate time.Time `json:"transaction_date"`
 }
 
-// TaxRateRequestLineItemType Type of line item
+// TaxRateRequestLineItemType Deprecated: use tax_class instead.
 type TaxRateRequestLineItemType string
+
+// TaxRateRequestTaxClass Tax class of the line item
+type TaxRateRequestTaxClass string
 
 // TaxRateResponse defines model for TaxRateResponse.
 type TaxRateResponse struct {
